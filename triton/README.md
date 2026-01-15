@@ -7,43 +7,24 @@ docker run -it --ipc=host --network=host --privileged --security-opt seccomp=unc
 
 ### 2. Check torch and triton version
 ```bash
-pip show torch
+pip show torch | grep Version
 ```
 ```
-Name: torch
 Version: 2.9.1+rocm7.1.0.lw.git351ff442
-Summary: Tensors and Dynamic neural networks in Python with strong GPU acceleration
-Home-page: https://pytorch.org
-Author:
-Author-email: PyTorch Team <packages@pytorch.org>
-License: BSD-3-Clause
-Location: /opt/venv/lib/python3.11/site-packages
-Requires: filelock, fsspec, jinja2, networkx, sympy, triton, typing-extensions
-Required-by: torchaudio, torchvision
 ```
-Commmit: https://github.com/ROCm/pytorch/commit/351ff442fbe2b9807b8a7ae6c2c30f448d56a736
+Commit: https://github.com/ROCm/pytorch/commit/351ff442fbe2b9807b8a7ae6c2c30f448d56a736
 
 ```bash
-pip show triton
+pip show triton | grep Version
 ```
 ```
-Name: triton
 Version: 3.5.1+rocm7.1.0.gita272dfa8
-Summary: A language and compiler for custom Deep Learning operations
-Home-page: https://github.com/triton-lang/triton/
-Author: Philippe Tillet
-Author-email: phil@openai.com
-License:
-Location: /opt/venv/lib/python3.11/site-packages
-Requires:
-Required-by: torch
 ```
 Commit: https://github.com/ROCm/triton/commit/a272dfa85e20c6c167a1ec0fab48f7f9f4fd47c4
 
-### 3. Build triton:
+### 3. Build triton from source:
 
 Triton source: https://github.com/triton-lang/triton/commit/d8da7c998c75c88691e0ec157fcfd92b49d7060a
-
 ```bash
 pip uninstall triton
 git clone https://github.com/triton-lang/triton && cd triton && git checkout d8da7c998c75c88691e0ec157fcfd92b49d7060a && cd ..

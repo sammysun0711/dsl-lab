@@ -31,6 +31,14 @@ git clone https://github.com/triton-lang/triton && cd triton && git checkout d8d
 git clone https://github.com/llvm-project/llvm
 ./build_triton_debug.sh
 ```
+Check triton version
+```
+pip show triton | grep Version
+```
+
+```
+Version: 3.6.0+gitd8da7c99
+```
 
 ### 4. Matmul kernel example
 Dump triton kernel in `triton_cache` and MLIR full pass in `full.mlir`

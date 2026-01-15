@@ -40,11 +40,17 @@ pip show triton | grep Version
 Version: 3.6.0+gitd8da7c99
 ```
 
-### 4. Matmul kernel example
-Dump triton kernel in `triton_cache` and MLIR full pass in `full.mlir`
+### 4. Matmul kernel example 
+Dump triton kernel in `triton_cache` and MLIR full pass in `full.mlir`, amdgcn dump in `amdgcn_dump.log`
 ```bash
 cd matmul
-TRITON_ALWAYS_COMPILE=1 TRITON_KERNEL_DUMP=1 TRITON_DUMP_DIR=./triton_cache MLIR_ENABLE_DUMP=1 MLIR_DUMP_PATH=full.mlir python 03-matrix-multiplication.py
+export TRITON_ALWAYS_COMPILE=1 
+export TRITON_KERNEL_DUMP=1 
+export TRITON_DUMP_DIR=./triton_cache 
+export MLIR_ENABLE_DUMP=1 
+export MLIR_DUMP_PATH=full.mlir 
+export AMDGCN_ENABLE_DUMP=1
+python 03-matrix-multiplication.py 2>&1 | tee amdgcn_dump.log
 ```
 
 Parse MLIR pass into speprate pass, saved in `MLIR` folder

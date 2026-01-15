@@ -1,3 +1,4 @@
+// -----// AMDGCN Dump //----- //
 	.amdgcn_target "amdgcn-amd-amdhsa--gfx942"
 	.amdhsa_code_object_version 5
 	.text
@@ -912,3 +913,4 @@ amdhsa.version:
 	.end_amdgpu_metadata
 	.section	.debug_line,"",@progbits
 .Lline_table_start0:
+

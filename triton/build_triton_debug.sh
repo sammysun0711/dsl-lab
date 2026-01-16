@@ -1,14 +1,14 @@
 install-build-deps () {
    apt-get update -y
    apt-get install clang vim tree lld ccache -y
-   pip install pybind11 -y
+   pip install pybind11
 }
 
 
 triton-pip-install () {
   REPO_BASE_DIR=$(git rev-parse --show-toplevel)
-  TRITON_BUILD_WITH_CCACHE=true TRITON_BUILD_WITH_CLANG_LLD=true \
-    pip install --no-build-isolation ${REPO_BASE_DIR}
+  #TRITON_BUILD_WITH_CCACHE=true TRITON_BUILD_WITH_CLANG_LLD=true \
+  pip install --no-build-isolation ${REPO_BASE_DIR}
 }
 
 
@@ -76,7 +76,7 @@ triton-cmake() {
     -DLLVM_INCLUDE_DIRS=${MLIR_DIR}/include \
     -DLLVM_LIBRARY_DIR=${MLIR_DIR}/lib \
     -DLLVM_SYSPATH=${MLIR_DIR} \
-    -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ \
+    -DCMAKE_C_COMPILER=$(which clang) -DCMAKE_CXX_COMPILER=$(which clang++) \
     -DCMAKE_LINKER=lld ${LINKER_FLAGS[@]} \
     -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
     -DTRITON_BUILD_PYTHON_MODULE=ON \
@@ -87,7 +87,13 @@ triton-cmake() {
 }
 
 # Install build dependency
+pip uninstall triton -y
+rm -rf ~/.triton
+
 install-build-deps
+
+# Export environmetn variable to use clang provided by rocm
+# export PATH=/opt/rocm/llvm/bin:$PATH
 
 # Build LLVM/MLIR at the specific commit needed by Triton
 cd llvm-project && git checkout $(cat ../triton/cmake/llvm-hash.txt) && cd ..

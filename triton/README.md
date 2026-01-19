@@ -59,10 +59,17 @@ python parse_mlir.py
 
 Apply `--inline` pass with `triton-opt` on `source.mlir`
 ```bash
-../build/triton-debug/bin/triton-opt MLIR/01-source.mlir --inline 2>&1 | tee inline.mlir
+../triton/build/cmake.linux-x86_64-cpython-3.11/bin/triton-opt MLIR/01-source.mlir --inline 2>&1 | tee inline.mlir
 ```
 
-### 5. Reference
+### 5. Trobleshooting
+### 5.1 Build Triton & MLIR debug from source
+```bash
+./build_triton_debug.sh
+./build/triton-debug/bin/triton-opt matmul/MLIR/01-source.mlir --inline 2>&1 | tee inline.mlir
+```
+
+### 6. Reference
 - https://www.lei.chat/posts/triton-compiler-development-tips
 - https://github.com/dsl-learn/Triton-blog-file/tree/main
 - https://github.com/triton-lang/triton?tab=readme-ov-file#tips-for-hacking

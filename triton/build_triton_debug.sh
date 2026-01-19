@@ -1,13 +1,23 @@
 install-build-deps () {
    apt-get update -y
-   apt-get install clang vim tree lld ccache -y
+   apt-get install clang vim tree ccache -y
    pip install pybind11
 }
 
 
 triton-pip-install () {
+  if (( $# < 1 ))
+  then
+    echo "usage: $0 <mlir-dir>"
+    return 1
+  fi
+
+  MLIR_DIR=$(realpath $1); shift
   REPO_BASE_DIR=$(git rev-parse --show-toplevel)
-  #TRITON_BUILD_WITH_CCACHE=true TRITON_BUILD_WITH_CLANG_LLD=true \
+  TRITON_BUILD_WITH_CCACHE=true TRITON_BUILD_WITH_CLANG_LLD=true \
+  LLVM_INCLUDE_DIRS=$MLIR_DIR/include \
+  LLVM_LIBRARY_DIR=$MLIR_DIR/lib \
+  LLVM_SYSPATH=$MLIR_DIR \
   pip install --no-build-isolation ${REPO_BASE_DIR}
 }
 
@@ -92,17 +102,14 @@ rm -rf ~/.triton
 
 install-build-deps
 
-# Export environmetn variable to use clang provided by rocm
-# export PATH=/opt/rocm/llvm/bin:$PATH
-
 # Build LLVM/MLIR at the specific commit needed by Triton
 cd llvm-project && git checkout $(cat ../triton/cmake/llvm-hash.txt) && cd ..
 triton-configure-mlir llvm-project/llvm build/mlir-debug Debug
 cmake --build build/mlir-debug
 
 # Use triton-pip-install to download dependencies like NIVIDA toolchain
-cd triton && triton-pip-install
+cd triton && triton-pip-install ../build/mlir-debug
 
 # Build Triton itself
-triton-cmake . ../build/triton-debug Debug ../build/mlir-debug
-cmake --build ../build/triton-debug
+triton-cmake .  ../build/triton-debug Debug  ../build/mlir-debug
+cmake --build  $(realpath ../build/triton-debug)

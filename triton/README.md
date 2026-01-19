@@ -24,13 +24,11 @@ Commit: https://github.com/ROCm/triton/commit/a272dfa85e20c6c167a1ec0fab48f7f9f4
 
 ### 3. Build triton from source:
 
-Triton source: https://github.com/triton-lang/triton/commit/d8da7c998c75c88691e0ec157fcfd92b49d7060a
+Triton source: https://github.com/triton-lang/triton/commit/0a73259f61a063eb9325048799a9ffb0ea7d1dec
 ```bash
 pip uninstall triton -y
-git clone https://github.com/triton-lang/triton && cd triton && git checkout release/3.5.x && cd ..
-git clone https://github.com/triton-lang/llvm-project
-
-./build_triton_debug.sh
+git clone https://github.com/triton-lang/triton && cd triton && git checkout 0a73259f61a063eb9325048799a9ffb0ea7d1dec
+make dev-install-llvm
 ```
 Check triton version
 ```
@@ -38,7 +36,7 @@ pip show triton | grep Version
 ```
 
 ```
-Version: 3.5.1
+Version: 3.6.0+git0a73259f
 ```
 
 ### 4. Matmul kernel example 

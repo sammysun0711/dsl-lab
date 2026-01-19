@@ -67,6 +67,7 @@ Apply `--inline` pass with `triton-opt` on `source.mlir`
 ```bash
 ./build_triton_debug.sh
 ./build/triton-debug/bin/triton-opt matmul/MLIR/01-source.mlir --inline 2>&1 | tee inline.mlir
+./build/mlir-debug/bin/mlir-opt matmul/MLIR/56-Canonicalizer.mlir --cse 2>&1 | tee cse.mlir
 ```
 
 ### 6. Reference

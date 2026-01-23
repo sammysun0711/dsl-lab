@@ -168,7 +168,6 @@ def matmul_kernel(
     c_ptrs = c_ptr + offs_m[:, None] * stride_cm + offs_n[None, :] * stride_cn
     c_mask = (offs_m[:, None] < M) & (offs_n[None, :] < N)
     tl.store(c_ptrs, c, mask=c_mask)
-    pass
 ```
 Please refer to [Debugging Triton¶](https://triton-lang.org/main/programming-guide/chapter-3/debugging.html) to see how print and debug kernels.
 

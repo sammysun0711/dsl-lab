@@ -326,7 +326,6 @@ def matmul_kernel_persistent(
     BLOCK_SIZE_M: tl.constexpr,  #
     BLOCK_SIZE_N: tl.constexpr,  #
     BLOCK_SIZE_K: tl.constexpr,  #
-   # GROUP_SIZE_M: tl.constexpr,  #
     NUM_SMS: tl.constexpr,  #
 ):
     start_pid = tl.program_id(axis=0)

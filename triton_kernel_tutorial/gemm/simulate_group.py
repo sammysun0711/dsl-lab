@@ -74,7 +74,7 @@ if __name__ == "__main__":
     print("origin padding")
     simulate_pid_origin_mapping(M,N,K,BLOCK_SIZE_M,BLOCK_SIZE_N,BLOCK_SIZE_K)
 
-    print("gouped padding")
+    print("grouped padding")
     simulate_pid_mapping(M,N,K,BLOCK_SIZE_M,BLOCK_SIZE_N,BLOCK_SIZE_K,GROUP_SIZE_M)
     pass
 

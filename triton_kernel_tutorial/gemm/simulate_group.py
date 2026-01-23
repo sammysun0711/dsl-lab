@@ -164,6 +164,5 @@ pid=77 | group=2 | (pid_m, pid_n)=(8, 7)
 pid=78 | group=2 | (pid_m, pid_n)=(6, 8)
 pid=79 | group=2 | (pid_m, pid_n)=(7, 8)
 pid=80 | group=2 | (pid_m, pid_n)=(8, 8)
-root@hjbog-srdc-52:~/workspace/pyhip/leetGPU/2_maxtrix_multiplication#
 
 """
